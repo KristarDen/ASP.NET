@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h4 class="display-4">Calculator</h4>
+    <form action="~/Home/Calc" method="post" name="myform">
+        <input type="number" name="First_Num" />
+        <select name="operation_type">
+            <option value="1">+</option>
+            <option value="2">-</option>
+            <option value="3">/</option>
+            <option value="4">*</option>
+        </select>
+        <input type="number" name="Second_Num" />
+
+        <input type="submit" value="Send">
+    </form>
+    
+    
+</div>

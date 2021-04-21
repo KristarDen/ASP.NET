@@ -1,18 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Models;
 
-namespace ASP_first_HW
+namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
         [HttpPost]
         public string Calc(int First_Num,  string operation_type, int Second_Num)
         {
@@ -34,7 +54,7 @@ namespace ASP_first_HW
                     break;
 
                 case 3:
-                    if (b == 0) return $"<h2 style=\"color: red\">You cant divide by zerro</h2>";
+                    if (b == 0) return $"You cant divide by zerro";
                     result = a / b;
                     symbol = "/";
                     break;
@@ -48,7 +68,7 @@ namespace ASP_first_HW
                     break;
             }
 
-            return $"<h3>{a}{symbol}{b}={result}<\\h3>";
+            return $"{a}{symbol}{b} = {result}";
         }
     }
 }

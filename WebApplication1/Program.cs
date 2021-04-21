@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ASP_first_HW
+namespace WebApplication1
 {
     public class Program
     {
@@ -22,7 +22,5 @@ namespace ASP_first_HW
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-        
     }
 }

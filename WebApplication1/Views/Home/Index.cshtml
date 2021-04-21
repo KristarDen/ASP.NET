@@ -1,10 +1,9 @@
-﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
+﻿@{
+    ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
     <h4 class="display-4">Calculator</h4>
     <form action="~/Home/Calc" method="post" name="myform">
         <input type="number" name="First_Num" />
@@ -18,6 +17,4 @@
 
         <input type="submit" value="Send">
     </form>
-    
-    
 </div>

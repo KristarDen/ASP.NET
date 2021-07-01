@@ -38,8 +38,8 @@ namespace Internet_market.Controllers
             P1.Color = "Серый";
             P1.Size = "XL";
             P1.Material = "100% хлопок";
-            P1.Photos.Add(new string("PW_t-short1.jpg"));
-            P1.Photos.Add(new string("PW_t-short2.jpg"));
+            P1.Photos.Add(new string("/Images/PW_t-short1.jpg"));
+            P1.Photos.Add(new string("/Images/PW_t-short2.jpg"));
             Products.Add(P1);
 
 
@@ -52,9 +52,9 @@ namespace Internet_market.Controllers
             P2.Color = "Чёреный";
             P2.Size = "Безразмерная";
             P2.Material = "Полиакрил";
-            P2.Photos.Add("PW_hat1.jpg");
-            P2.Photos.Add("PW_hat2.jpg");
-            P2.Photos.Add("PW_hat3.jpg");
+            P2.Photos.Add("/Images/PW_hat1.jpg");
+            P2.Photos.Add("/Images/PW_hat2.jpg");
+            P2.Photos.Add("/Images/PW_hat3.jpg");
             Products.Add(P2);
 
 

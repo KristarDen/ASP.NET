@@ -1,27 +1,26 @@
 ﻿@model Product
+
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>SomeView</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Name</title>
 </head>
 
-<body>
+<body style="display: flex">
     <h1>@Model.Name</h1>
     @foreach (var source in Model.Photos)
     {
-        <img src="@source" />
+        <img src="@Url.Content(source) " asp-append-version="true"/>
     }
-    <div style="display:flex">
+    <div style="display:flex; flex-direction: column">
         <div>Цена @Model.Price &#8372;</div>
         <div style="border: solid 1px black">@Model.Description</div>
         <div>@Model.Type</div>
-        <div>@Model.Material</div>
-        <div>@Model.Size</div>
-        <div>@Model.Color</div>
-        <div>@Model.</div>
-   
+        <div>Материал: @Model.Material</div>
+        <div>Размер: @Model.Size</div>
+        <div>Цвет: @Model.Color</div>
     </div>
 
 

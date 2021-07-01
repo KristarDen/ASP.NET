@@ -25,6 +25,7 @@ namespace Internet_market.Models
 
         
 
-        public List <string> Photos;
+        public List<string> Photos { get; set; } = new List<string>();
     }
+
 }

@@ -14,6 +14,9 @@ namespace Internet_market.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        public List<Product> Products = new List<Product>();
+
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -24,9 +27,38 @@ namespace Internet_market.Controllers
             return View();
         }
 
-        public IActionResult Product(Product prod)
+        public IActionResult Product(int id)
         {
-            return View("Product", prod);
+            Product P1 = new Product();
+            P1.id = 1;
+            P1.Name = "Футболка Powerwolf \"Metal Is Religion\"";
+            P1.Price = 450;
+            P1.Type = "T-Short";
+            P1.Description = "Футболка с полной запечаткой, детализированым рисунком и слоганом группы Powerwolf - \"Metal is religion\" ";
+            P1.Color = "Серый";
+            P1.Size = "XL";
+            P1.Material = "100% хлопок";
+            P1.Photos.Add(new string("PW_t-short1.jpg"));
+            P1.Photos.Add(new string("PW_t-short2.jpg"));
+            Products.Add(P1);
+
+
+            Product P2 = new Product();
+            P2.id = 1;
+            P2.Name = "Шапка Powerwolf";
+            P2.Price = 170;
+            P2.Type = "Hat";
+            P2.Description = "Шапка группы Powerwolf с вышивкой";
+            P2.Color = "Чёреный";
+            P2.Size = "Безразмерная";
+            P2.Material = "Полиакрил";
+            P2.Photos.Add("PW_hat1.jpg");
+            P2.Photos.Add("PW_hat2.jpg");
+            P2.Photos.Add("PW_hat3.jpg");
+            Products.Add(P2);
+
+
+            return View("Product", Products[id-1]);
         }
 
         public IActionResult Privacy()

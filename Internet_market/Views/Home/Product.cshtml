@@ -8,7 +8,22 @@
 </head>
 
 <body>
-    <h1>@Product</h1>
+    <h1>@Model.Name</h1>
+    @foreach (var source in Model.Photos)
+    {
+        <img src="@source" />
+    }
+    <div style="display:flex">
+        <div>Цена @Model.Price &#8372;</div>
+        <div style="border: solid 1px black">@Model.Description</div>
+        <div>@Model.Type</div>
+        <div>@Model.Material</div>
+        <div>@Model.Size</div>
+        <div>@Model.Color</div>
+        <div>@Model.</div>
+   
+    </div>
+
 
 
 </body>

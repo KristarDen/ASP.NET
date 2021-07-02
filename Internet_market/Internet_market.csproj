@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Images\PW_hat1.jpg" />
+    <None Include="wwwroot\Images\PW_hat2.jpg" />
+    <None Include="wwwroot\Images\PW_hat3.jpg" />
+    <None Include="wwwroot\Images\PW_t-short1.jpg" />
+    <None Include="wwwroot\Images\PW_t-short2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
   </ItemGroup>
 

@@ -52,9 +52,9 @@ namespace Internet_market.Controllers
             P2.Color = "Чёреный";
             P2.Size = "Безразмерная";
             P2.Material = "Полиакрил";
-            P2.Photos.Add("/Images/PW_hat1.jpg");
-            P2.Photos.Add("/Images/PW_hat2.jpg");
-            P2.Photos.Add("/Images/PW_hat3.jpg");
+            P2.Photos.Add("./Images/PW_hat1.jpg");
+            P2.Photos.Add("./Images/PW_hat2.jpg");
+            P2.Photos.Add("./Images/PW_hat3.jpg");
             Products.Add(P2);
 
 

@@ -12,7 +12,7 @@
     <h1>@Model.Name</h1>
     @foreach (var source in Model.Photos)
     {
-        <img src="@Url.Content(source) " asp-append-version="true"/>
+        <img src="@Url.Content(source)" asp-append-version="true"/>
     }
     <div style="display:flex; flex-direction: column">
         <div>Цена @Model.Price &#8372;</div>

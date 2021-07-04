@@ -1,30 +1,134 @@
 ﻿@model Product
+@{
+    int photo_index = 0;
+    int max_photoIndex = Model.Photos.Count;
+}
 
 <!DOCTYPE html>
 
-<html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@Model.Name</title>
+
+    <style>
+        .Product_container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .Product_info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .Price {
+            background-color: #2E8B57;
+            border-radius: 5px;
+        }
+
+        .Product_description {
+            border: solid 1px black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .Product_img {
+            width: 90%;
+            max-width: 100px;
+            height: auto;
+            border: 1px #E6E6FA solid;
+            margin: 5px;
+        }
+        .First_img {
+            width: 90%;
+            max-width: 700px;
+            height: auto;
+            border: 1px #E6E6FA solid;
+        }
+
+        h1 {
+        }
+    </style>
 </head>
 
-<body style="display: flex">
+
+<div class="Product_container">
+
     <h1>@Model.Name</h1>
-    @foreach (var source in Model.Photos)
-    {
-        <img src="@Url.Content(source)" asp-append-version="true"/>
-    }
-    <div style="display:flex; flex-direction: column">
-        <div>Цена @Model.Price &#8372;</div>
-        <div style="border: solid 1px black">@Model.Description</div>
-        <div>@Model.Type</div>
-        <div>Материал: @Model.Material</div>
-        <div>Размер: @Model.Size</div>
-        <div>Цвет: @Model.Color</div>
+
+    <div>
+        <!-- <input type="button" id="ButtonPrev" value="<" onclick="PrevClick()" />-->
+
+
+        <img class="First_img" id="Photo" src="@Model.Photos[0]" asp-append-version="true" />
+        @for (int i = 0; i < Model.Photos.Count; i++)
+        {
+            if (i != 0)
+            {
+                <img class="Product_img" id="Photo" src="@Model.Photos[i]" asp-append-version="true" />
+            }
+        }
+
+
+        <!--<input type="button" id="ButtonNext" value=">" onclick="NextClick()" />-->
     </div>
 
+        <div class="Product_info">
+
+            <div>Цена <span class="Price">@Model.Price &#8372;</span></div>
+
+            <div class="Product_description">@Model.Description</div>
+
+            <div>@Model.Type</div>
+
+            <div>Материал: @Model.Material</div>
+
+            <div>Размер: @Model.Size</div>
+
+            <div>Цвет: @Model.Color</div>
+
+        </div>
+
+    </div>
+
+    <!-- <script>
+     let photo_index = 0;
+     let max_photoIndex = @Model.Photos.Count;
 
 
-</body>
+     function NextClick() {
 
-</html>
+         if (photo_index <= max_photoIndex) {
+
+             photo_index += 1;
+             @photo_index += 1;
+             document.getElementById("Photo").src = "@Model.Photos[photo_index]";
+         }
+
+         else {
+             @photo_index = 0;
+             photo_index = 0;
+         }
+
+     }
+     document.getElementById("ButtonPrev").onclick = PrevClick;
+     document.getElementById("ButtonNext").onclick = NextClick;
+
+     function PrevClick() {
+
+         if (photo_index <= max_photoIndex) {
+             @photo_index -= 1;
+             photo_index -= 1;
+             document.getElementById("Photo").src = "@Model.Photos[photo_index]";
+         }
+
+         else {
+             @photo_index = max_photoIndex;
+             photo_index = max_photoIndex;
+         }
+
+     }
+
+
+     </script>-->

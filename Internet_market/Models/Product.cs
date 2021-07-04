@@ -23,9 +23,6 @@ namespace Internet_market.Models
 
         public string Material { get; set; }
 
-        
-
-        public List<string> Photos { get; set; } = new List<string>();
     }
 
 }

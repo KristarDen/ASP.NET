@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\ProductStyle.css" />
     <None Include="wwwroot\Images\PW_hat1.jpg" />
     <None Include="wwwroot\Images\PW_hat2.jpg" />
     <None Include="wwwroot\Images\PW_hat3.jpg" />
@@ -14,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
   </ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,18 +22,9 @@ namespace Internet_market.Controllers
         {
             _logger = logger;
             db_context = context;
-        }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Product(int id)
-        {
-            
             Product P1 = new Product();
-            P1.id = 1;
+           //P1.id = 1;
             P1.Name = "Футболка Powerwolf \"Metal Is Religion\"";
             P1.Price = 450;
             P1.Type = "Футболка";
@@ -41,12 +33,12 @@ namespace Internet_market.Controllers
             P1.Size = "XL";
             P1.Material = "100% хлопок";
             db_context.Products.Add(P1);
-            db_context.Photos.Add(new Photo { Id = 1, source = "/Images/PW_t-short1.jpg" });
-            db_context.Photos.Add(new Photo { Id = 1, source = "/Images/PW_t-short2.jpg" });
+            db_context.Photos.Add(new Photo {source = "/Images/PW_t-short1.jpg", ProductId = 1 });
+            db_context.Photos.Add(new Photo {source = "/Images/PW_t-short2.jpg", ProductId = 1 });
 
 
             Product P2 = new Product();
-            P2.id = 2;
+           // P2.id = 2;
             P2.Name = "Шапка Powerwolf";
             P2.Price = 170;
             P2.Type = "Шапка";
@@ -56,11 +48,27 @@ namespace Internet_market.Controllers
             P2.Material = "Полиакрил";
             db_context.Products.Add(P2);
 
-            db_context.Photos.Add(new Photo { Id = 2, source = "/Images/PW_hat1.jpg" });
-            db_context.Photos.Add(new Photo { Id = 2, source = "/Images/PW_hat2.jpg" });
-            db_context.Photos.Add(new Photo { Id = 2, source = "/Images/PW_hat3.jpg" });
+            db_context.Photos.Add(new Photo {source = "/Images/PW_hat1.jpg", ProductId = 2 });
+            db_context.Photos.Add(new Photo { source = "/Images/PW_hat2.jpg", ProductId = 2 });
+            db_context.Photos.Add(new Photo { source = "/Images/PW_hat3.jpg", ProductId = 2 });
 
-            return View("Product", Products[id-1]);
+            db_context.SaveChanges();
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Product(int id)
+        {
+            Product product = db_context.Products.Find(id);
+            var photos = db_context.Photos.Where(photo => photo.ProductId == id).ToList();
+
+            ViewData["Product"] = product;
+            ViewData["Photos"] = photos;
+
+            return View("Product", ViewData);
         }
 
         public IActionResult Privacy()

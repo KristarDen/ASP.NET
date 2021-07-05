@@ -1,7 +1,6 @@
-﻿@model Product
-@{
-    int photo_index = 0;
-    int max_photoIndex = Model.Photos.Count;
+﻿@{
+    var Product = ViewData["Product"] as Product;
+    var Photos = ViewData["Photos"] as List<Photo>;
 }
 
 <!DOCTYPE html>
@@ -9,7 +8,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@Model.Name</title>
+    <title>@Product.Name</title>
 
     <style>
         .Product_container {
@@ -55,18 +54,18 @@
 
 <div class="Product_container">
 
-    <h1>@Model.Name</h1>
+    <h1>@Product.Name</h1>
 
     <div>
         <!-- <input type="button" id="ButtonPrev" value="<" onclick="PrevClick()" />-->
 
 
-        <img class="First_img" id="Photo" src="@Model.Photos[0]" asp-append-version="true" />
+        <img class="First_img" id="Photo" src="@Photos[0].source" asp-append-version="true" />
         @for (int i = 0; i < Model.Photos.Count; i++)
         {
             if (i != 0)
             {
-                <img class="Product_img" id="Photo" src="@Model.Photos[i]" asp-append-version="true" />
+                <img class="Product_img" id="Photo" src="@Photos[i].source" asp-append-version="true" />
             }
         }
 
@@ -76,59 +75,20 @@
 
         <div class="Product_info">
 
-            <div>Цена <span class="Price">@Model.Price &#8372;</span></div>
+            <div>Цена <span class="Price">@Product.Price &#8372;</span></div>
 
-            <div class="Product_description">@Model.Description</div>
+            <div class="Product_description">@Product.Description</div>
 
-            <div>@Model.Type</div>
+            <div>@Product.Type</div>
 
-            <div>Материал: @Model.Material</div>
+            <div>Материал: @Product.Material</div>
 
-            <div>Размер: @Model.Size</div>
+            <div>Размер: @Product.Size</div>
 
-            <div>Цвет: @Model.Color</div>
+            <div>Цвет: @Product.Color</div>
 
         </div>
 
     </div>
 
-    <!-- <script>
-     let photo_index = 0;
-     let max_photoIndex = @Model.Photos.Count;
-
-
-     function NextClick() {
-
-         if (photo_index <= max_photoIndex) {
-
-             photo_index += 1;
-             @photo_index += 1;
-             document.getElementById("Photo").src = "@Model.Photos[photo_index]";
-         }
-
-         else {
-             @photo_index = 0;
-             photo_index = 0;
-         }
-
-     }
-     document.getElementById("ButtonPrev").onclick = PrevClick;
-     document.getElementById("ButtonNext").onclick = NextClick;
-
-     function PrevClick() {
-
-         if (photo_index <= max_photoIndex) {
-             @photo_index -= 1;
-             photo_index -= 1;
-             document.getElementById("Photo").src = "@Model.Photos[photo_index]";
-         }
-
-         else {
-             @photo_index = max_photoIndex;
-             photo_index = max_photoIndex;
-         }
-
-     }
-
-
-     </script>-->
+    

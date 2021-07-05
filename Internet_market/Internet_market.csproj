@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\ProductStyle.css" />
     <None Include="wwwroot\Images\PW_hat1.jpg" />
     <None Include="wwwroot\Images\PW_hat2.jpg" />
     <None Include="wwwroot\Images\PW_hat3.jpg" />

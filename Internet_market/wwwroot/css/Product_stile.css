@@ -1,0 +1,108 @@
+﻿
+@media (min-width: 300px)  and (max-width: 700px){
+
+    .Product_container {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        align-content:center;
+        justify-content:center;
+        align-self:center;
+    }
+}
+@media (max-width: 2000px) and (min-width: 800px) {
+
+
+    .Product_container {
+        display: flex;
+        flex-direction: row;
+        max-width: 600px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        align-content: center;
+        justify-content: center;
+        align-self: center;
+    }
+}
+
+    body{
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+    }
+
+    .Product_info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+    }
+
+    .PriceContainer {
+        margin: 10px;
+        color: black;
+        width: fit-content;
+        background-color: #DCDCDC;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 5px;
+        text-align: center;
+    }
+
+    .Price {
+        background-color: #2E8B57;
+        border-radius: 5px;
+        padding: 5px;
+        color: aliceblue;
+    }
+
+    .Product_description {
+        border: solid 1px black;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .Product_img {
+        width: auto;
+        align-self: baseline;
+        max-width: 100px;
+        height: auto;
+        max-height: 100px;
+        border: 1px #E6E6FA solid;
+        margin-right: 10px;
+    }
+
+    .Images {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .First_img {
+        width: 300px;
+        height: auto;
+        border: 1px #E6E6FA solid;
+        display: flex;
+    }
+
+    .Image_container {
+        margin: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-self: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    main{
+        display:flex;
+        flex-direction: column;
+    }

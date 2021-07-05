@@ -57,6 +57,14 @@ namespace Internet_market.Controllers
 
         public IActionResult Index()
         {
+            /*var products = db_context.Products.Take(20);
+            var photos;
+
+            using (db_context)
+            {
+                photos = from p in db_context.Photos
+                         where p.ProductId == 
+            }*/
             return View();
         }
 

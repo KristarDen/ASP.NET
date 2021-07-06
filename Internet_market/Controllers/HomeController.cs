@@ -86,7 +86,7 @@ namespace Internet_market.Controllers
                 //           Photo = photo.source
                 //        }).Distinct().Take(20).ToList();
 
-                var prod_n_photo = db_context.Products.Include(p => p.Photos);               
+                var prod_n_photo = db_context.Products.Include(p => p.Photos).Take(20);               
 
                 return View("Index", prod_n_photo);
            

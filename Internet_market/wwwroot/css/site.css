@@ -9,7 +9,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: rgb(119,136,153);
 }
 
 .btn-primary {
@@ -28,6 +28,7 @@ a {
 -------------------------------------------------- */
 html {
     font-size: 14px;
+    background-image: url("/css/Back_img.jpg");
 }
 @media (min-width: 768px) {
   html {
@@ -56,11 +57,14 @@ button.accept-policy {
 html {
   position: relative;
   min-height: 100%;
+ 
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: rgba(0,0,0, 0.0);
+    color: aliceblue;
 }
 .footer {
   position: absolute;
@@ -71,5 +75,6 @@ body {
 }
 
 header {
-    display: flex;
+    width: 100%;
+    
 }

@@ -7,8 +7,10 @@ namespace Internet_market.Models
 {
     public class Photo
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string source { get; set; }
+       
         public int ProductId { get; set; }
+        public Product Product { get; set; }
     }
 }

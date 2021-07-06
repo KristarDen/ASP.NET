@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
@@ -32,9 +33,7 @@ namespace Internet_market.Controllers
             P1.Color = "Серый";
             P1.Size = "XL";
             P1.Material = "100% хлопок";
-            db_context.Products.Add(P1);
-            db_context.Photos.Add(new Photo {source = "/Images/PW_t-short1.jpg", ProductId = 1 });
-            db_context.Photos.Add(new Photo {source = "/Images/PW_t-short2.jpg", ProductId = 1 });
+            db_context.Products.Add(P1);         
 
 
             Product P2 = new Product();
@@ -48,12 +47,19 @@ namespace Internet_market.Controllers
             P2.Material = "Полиакрил";
             db_context.Products.Add(P2);
 
+            db_context.SaveChanges();
+
+            db_context.Photos.Add(new Photo { source = "/Images/PW_t-short1.jpg", ProductId = 1 });
+            db_context.Photos.Add(new Photo { source = "/Images/PW_t-short2.jpg", ProductId = 1 });
+
             db_context.Photos.Add(new Photo {source = "/Images/PW_hat1.jpg", ProductId = 2 });
             db_context.Photos.Add(new Photo { source = "/Images/PW_hat2.jpg", ProductId = 2 });
             db_context.Photos.Add(new Photo { source = "/Images/PW_hat3.jpg", ProductId = 2 });
 
             db_context.SaveChanges();
         }
+
+        
 
         public IActionResult Index()
         {
@@ -65,7 +71,26 @@ namespace Internet_market.Controllers
                 photos = from p in db_context.Photos
                          where p.ProductId == 
             }*/
-            return View();
+
+
+           
+                //var prod_n_photo = db_context.Products.Join(db_context.Photos,
+                //    product => product.id,
+                //    photo => photo.ProductId,
+                //        (product, photo) => new MinProdInfo
+                //        {
+                //           Id = product.id,
+                //           Name = product.Name,
+                //           Type = product.Type,
+                //           Price = product.Price,
+                //           Photo = photo.source
+                //        }).Distinct().Take(20).ToList();
+
+                var prod_n_photo = db_context.Products.Include(p => p.Photos);               
+
+                return View("Index", prod_n_photo);
+           
+            
         }
 
         public IActionResult Product(int id)

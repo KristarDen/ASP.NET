@@ -1,8 +1,42 @@
-﻿@{
+﻿@model IEnumerable<Product>
+@{
     ViewData["Title"] = "Home Page";
+   
 }
+
+<style>
+    .ProductUnit {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        border: 1px #E6E6FA solid;
+        margin: 10px;
+        padding: 5px;
+        
+    }
+    .ProductUnit:hover{
+        background-color: dimgrey;
+    }
+    .allProd {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+       
+    }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Shop</h1>
+    <div class="allProd">
+        @foreach (var product in Model)
+        {
 
+            <div class="ProductUnit" onclick="" >
+                <span>@product.Name</span>
+                <img src="@product.Photos.First().source" width="100px" height="auto" />
+                <span>@product.Type</span>
+                <span>@product.Price</span>
+            </div>
+        }
+    </div>
 </div>

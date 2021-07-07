@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+        var Products = ViewData["Products"] as List<Product>;
+        var Photos = ViewData["Photos"] as List<Photo>;
+}
+<div class="text-center">
+    <h1 class="display-4">Корзина</h1>
+   
+    <div class="container">
+        @for (int i = 0; i < Products.Count; i++)
+        {
+
+            <div class="row" style="margin: 10px;" onclick="javascript: document.location = 'Home/Product/@Products[i].Id'">
+
+                <img class="col-lg-" src="@Photos[i].source" width="150px" height="auto" />
+
+                <div class="col-lg-">
+                    <div>@Products[i].Name</div>
+                    <div>@Products[i].Price &#8372;</div>
+                </div>
+            
+
+            </div>
+        }
+    </div>
+</div>

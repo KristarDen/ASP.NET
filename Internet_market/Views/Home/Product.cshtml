@@ -5,15 +5,10 @@
 
 <!DOCTYPE html>
 
-
 <head>
     <link rel="stylesheet" href="~/css/Product_stile.css">
     <meta name="viewport" content="width=device-width" />
     <title>@Product.Name</title>
-
-    <style>
-
-    </style>
 </head>
 
 <script>
@@ -22,6 +17,53 @@
 
         document.getElementById("Main_Photo").src = element.src;
 
+    }
+
+    function AddToCart(id) {
+        if (getCookie("p1") != -1) {
+
+            let i = 1;
+
+            while (true) {
+
+                if (getCookie(("p" + i)) == -1) {
+                    document.cookie = "p" + i + "=" + id + "; path=/;";
+                    break;
+                }
+                else i++;
+               
+            }
+
+        }
+        else {
+            document.cookie = "p1" + "=" + id + "; path=/;";
+        }
+    }
+
+    function getCookie(name) {
+        let cookie = " " + document.cookie;
+        let search = " " + name + "=";
+        let setStr = null;
+        let offset = 0;
+        let end = 0;
+        if (cookie.length > 0) {
+            offset = cookie.indexOf(search);
+            if (offset != -1) {
+                offset += search.length;
+                end = cookie.indexOf(";", offset)
+                if (end == -1) {
+                    end = cookie.length;
+                }
+                setStr = unescape(cookie.substring(offset, end));
+            }
+            else {
+                return -1;
+            }
+        }
+        else {
+            return -1;
+        }
+        return (setStr);
     }
 
 </script>
@@ -49,7 +91,11 @@
 
         <div class="Product_info">
 
-            <div class="PriceContainer"><span style="margin-right: 10px">Coast</span> <span class="Price">@Product.Price &#8372;</span></div>
+            <div class="PriceContainer">
+                <span style="margin-right: 10px">Coast</span> 
+                <span class="Price">@Product.Price &#8372;</span>
+                <button class="BuyButton" onclick="AddToCart(@Product.Id)">Купить</button>
+            </div>
 
             <div class="Product_description">@Product.Description</div>
 

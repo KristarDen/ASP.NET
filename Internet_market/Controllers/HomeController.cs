@@ -63,32 +63,9 @@ namespace Internet_market.Controllers
 
         public IActionResult Index()
         {
-            /*var products = db_context.Products.Take(20);
-            var photos;
+            var prod_n_photo = db_context.Products.Include(p => p.Photos).Take(20);               
 
-            using (db_context)
-            {
-                photos = from p in db_context.Photos
-                         where p.ProductId == 
-            }*/
-
-
-           
-                //var prod_n_photo = db_context.Products.Join(db_context.Photos,
-                //    product => product.id,
-                //    photo => photo.ProductId,
-                //        (product, photo) => new MinProdInfo
-                //        {
-                //           Id = product.id,
-                //           Name = product.Name,
-                //           Type = product.Type,
-                //           Price = product.Price,
-                //           Photo = photo.source
-                //        }).Distinct().Take(20).ToList();
-
-                var prod_n_photo = db_context.Products.Include(p => p.Photos).Take(20);               
-
-                return View("Index", prod_n_photo);
+            return View("Index", prod_n_photo);
            
             
         }
@@ -107,6 +84,37 @@ namespace Internet_market.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult Cart()
+        {
+           
+            if(HttpContext.Request.Cookies.Keys.Contains("p1"))
+            {
+                List<Product> products = new List<Product>();
+                List<Photo> photos = new List<Photo>();
+                int i = 1;
+                while(true)
+                {
+                    if(HttpContext.Request.Cookies.Keys.Contains($"p{i}"))
+                    {
+                        int id = Convert.ToInt32(HttpContext.Request.Cookies[$"p{i}"]);
+                        Product product = db_context.Products.Find(id);
+                        var photoOfProd = db_context.Photos.Where(photo => photo.ProductId == id).ToList();
+
+                        products.Add(product);
+                        photos.Add(photoOfProd[0]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                ViewData["Products"] = products;
+                ViewData["Photos"] = photos;
+            }
+            return View("Cart");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

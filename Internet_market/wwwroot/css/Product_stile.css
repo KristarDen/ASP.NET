@@ -62,6 +62,12 @@ body {
     padding: 5px;
     color: aliceblue;
 }
+.BuyButton {
+    background-color: #2E8B57;
+    border-radius: 5px;
+    padding: 5px;
+    color: aliceblue;
+}
 
 .Product_description {
     border: solid 1px black;

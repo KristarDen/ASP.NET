@@ -1,0 +1,28 @@
+﻿.ProductUnit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+    color: dimgray;
+}
+
+.ProductUnit:hover {
+    background-color: rgba(47,79,79,0.5);
+    border-radius: 10px;
+}
+
+.allProd {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+    background-color: white;
+}
+
+
+.ProductName {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17pt;
+    margin: 10px;
+}

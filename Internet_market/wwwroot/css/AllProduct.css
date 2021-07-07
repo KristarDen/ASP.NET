@@ -1,0 +1,36 @@
+﻿.ProductUnit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+    color: dimgray;
+}
+
+    .ProductUnit:hover {
+        background-color: rgba(47,79,79,0.5);
+        border-radius: 10px;
+    }
+
+.allProd {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+    background-color: white;
+}
+
+@media (min-width: 300px) and (max-width: 900px) {
+    .allProd {
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+}
+
+
+.ProductName {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17pt;
+    margin: 10px;
+}

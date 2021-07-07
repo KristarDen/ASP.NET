@@ -3,35 +3,8 @@
     ViewData["Title"] = "Home Page";
 
 }
+<link rel="stylesheet" href="~/css/AllProduct.css">
 
-<style>
-    .ProductUnit {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10px;
-        padding: 5px;
-        color: dimgray;
-    }
-
-    .ProductUnit:hover {
-        background-color: rgba(47,79,79,0.5);
-        border-radius: 10px;
-    }
-
-    .allProd {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        background-color: white;
-    }
-
-    .ProductName {
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 17pt;
-        margin: 10px;
-    }
-</style>
 
 <div class="text-center">
     <h1 class="display-4">Shop</h1>
@@ -43,7 +16,7 @@
 
                 <span class="ProductName">@product.Name</span>
 
-                <img src="@product.Photos.First().source" width="300px" height="auto" />
+                <img src="@product.Photos.First().source" width="250px" height="auto" />
 
                 <span>@product.Type</span>
 

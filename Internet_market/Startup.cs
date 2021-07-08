@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Internet_market.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace Internet_market
 {
@@ -33,6 +35,12 @@ namespace Internet_market
                 options.UseSqlServer(connection));
             services.AddControllersWithViews();
 
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => {
+                    options.LoginPath = new PathString("/Account/Login");
+                    options.AccessDeniedPath = new PathString("/Account/Login");
+                });
         }
 
         
@@ -47,11 +55,14 @@ namespace Internet_market
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

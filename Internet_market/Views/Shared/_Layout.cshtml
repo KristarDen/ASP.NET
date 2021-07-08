@@ -28,6 +28,20 @@
                         <img class="nav-item" src="~/css/cart.png" width="50px" height="auto" />
                     </a>
                 </div>
+                <div>
+                    @if (!Context.User.Identity.IsAuthenticated)
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    }
+                    else
+                    {
+                        <p class="alert-info">Hello, @Context.User.Identity.Name</p>
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input type="submit" value="Logout"/>
+                        </form>
+                    }
+                </div>
             </div>
         </nav>
     </header>
@@ -36,6 +50,7 @@
             @RenderBody()
         </main>
     </div>
+
 
     <footer class="border-top footer text-muted">
         <div class="container">

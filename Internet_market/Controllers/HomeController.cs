@@ -24,7 +24,7 @@ namespace Internet_market.Controllers
             _logger = logger;
             db_context = context;
 
-            Product P1 = new Product();
+            /*Product P1 = new Product();
            //P1.id = 1;
             P1.Name = "Футболка Powerwolf \"Metal Is Religion\"";
             P1.Price = 450;
@@ -56,14 +56,15 @@ namespace Internet_market.Controllers
             db_context.Photos.Add(new Photo { source = "/Images/PW_hat2.jpg", ProductId = 2 });
             db_context.Photos.Add(new Photo { source = "/Images/PW_hat3.jpg", ProductId = 2 });
 
-            db_context.SaveChanges();
+            db_context.SaveChanges();*/
         }
 
         
 
         public IActionResult Index()
         {
-            var prod_n_photo = db_context.Products.Include(p => p.Photos).Take(20);               
+            
+            var prod_n_photo = db_context.Products.Include(p => p.Photos);               
 
             return View("Index", prod_n_photo);
            

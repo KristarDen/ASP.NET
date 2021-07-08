@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Internet_market</title>
+    <title>@ViewData["Title"] - Rock shop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -24,9 +24,9 @@
                     </ul>
                 </div>
                 <div>
-                    <div class="nav-link text-dark" asp-area="" asp-controller="Account" onclick="javascript: document.location = 'Home/Cart'" id="Cart" asp-action="Login">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home"  asp-action="Cart" id="Cart" >
                         <img class="nav-item" src="~/css/cart.png" width="50px" height="auto" />
-                    </div>
+                    </a>
                 </div>
             </div>
         </nav>

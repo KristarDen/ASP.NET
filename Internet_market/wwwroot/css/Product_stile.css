@@ -44,7 +44,8 @@ body {
 }
 
 .PriceContainer {
-    margin: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     color: black;
     width: fit-content;
     background-color: #DCDCDC;

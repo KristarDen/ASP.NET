@@ -16,7 +16,7 @@
 
                 <span class="ProductName">@product.Name</span>
 
-                <img src="@product.Photos.First().source" width="250px" height="auto" />
+                <img src="@product.Photos?.First()?.source" width="250px" height="auto" />
 
                 <span>@product.Type</span>
                 <span>Размер: @product.Size</span>

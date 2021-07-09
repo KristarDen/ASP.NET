@@ -95,7 +95,7 @@ namespace Authentication.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                ModelState.AddModelError("", "Email is already taken");
+                ModelState.AddModelError("", "Такой e-mail уже зарегистрирован !");
             }
             return View(model);
         }

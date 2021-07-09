@@ -18,9 +18,13 @@ namespace Internet_market.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
+            Database.OpenConnection();
+
+            /*
            // Database.OpenConnection();
             Database.EnsureDeleted();
             Database.EnsureCreated();  // создаем базу данных при первом обращении
+            */
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

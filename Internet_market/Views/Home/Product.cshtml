@@ -94,7 +94,7 @@
             <div class="PriceContainer">
                 <span style="margin-right: 10px">Coast</span> 
                 <span class="Price">@Product.Price &#8372;</span>
-                <button class="BuyButton" onclick="AddToCart(@Product.Id)">Купить</button>
+                <button class="BuyButton" onclick="location.href='/Home/AddProduct/@Product.Id'">Купить</button>
             </div>
 
             <div class="Product_description">@Product.Description</div>

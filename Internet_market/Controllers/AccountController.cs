@@ -45,12 +45,15 @@ namespace Authentication.Controllers
                 if (user != null)
                 {
                     await Authenticate(user);
+
+                    
                     return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError("", "Invalid login or password");
+                
             }
-
+            
             return View(model);
         }
 
@@ -100,18 +103,27 @@ namespace Authentication.Controllers
             return View(model);
         }
 
+      
 
         private async Task Authenticate(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, "" + user.FirstName + " " + user.LastName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, "" + user.Id + "|" + user.FirstName +" "+ user.LastName),
             };
+
             // создаем объект ClaimsIdentity
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
+            ClaimsIdentity id = new ClaimsIdentity
+                (claims, 
+                "ApplicationCookie", 
+                ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType
+            );
+            ClaimsPrincipal principal = new ClaimsPrincipal(id);
             // установка аутентификационных куки
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            
         }
     }
 }

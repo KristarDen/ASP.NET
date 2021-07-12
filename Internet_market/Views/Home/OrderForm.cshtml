@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script>
+    function ValidPhone() {
+
+        let re = /^\d[\d\(\)\ -]{4,14}\d$/;
+        let myPhone = document.getElementById("phone").value;
+        let valid = re.test(myPhone);
+
+        if (valid) {
+            document.getElementById("PhoneLabel").innerText = "Телефон введён неверно!"
+        }
+        else {
+            document.getElementById("PhoneLabel").innerText = "Номер телефона";
+            //document.getElementById("OrderButton").style.visibility = "visible";
+        }
+    }
+    function Order() {
+        let phone = document.getElementById("phone").value;
+        window.location.href = `/Home/Order/${phone}`;
+    }
+
+</script>
+<div class="row">
+    <div class="col-md-4">
+
+        <div class="form-group">
+            <label id="PhoneLabel"class="control-label">Номер телефона</label>
+            <input type="text" id="phone "class="form-control" oninput="ValidPhone()" title="Номер телефона" />
+            <span class="text-danger"></span>
+        </div>
+
+        <button id="OrderButton"  onclick="Order()" class="btn-success">Заказать</button>
+    </div>
+    
+</div>

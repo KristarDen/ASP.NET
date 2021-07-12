@@ -11,7 +11,6 @@ namespace Internet_market.Models
         public User User { get; set; }
 
         public int Id { get; set; }
-        public int Number { get; set; }
         public DateTime dateTime { get; set; }
 
         public int ProductId { get; set; }

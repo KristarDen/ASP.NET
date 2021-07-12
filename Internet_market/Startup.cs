@@ -77,6 +77,9 @@ namespace Internet_market
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Cart}/");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=OrderForm}");
             });
         }
     }

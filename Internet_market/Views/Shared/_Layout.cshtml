@@ -37,11 +37,14 @@
                     }
                     else
                     {
-                        <p class="alert-info">@Context.User.Identity.Name</p>
-                        <form method="post" asp-controller="Account" asp-action="Logout">
-                            <button class="btn-dark">Выйти</button>
-                        </form>
-                    }
+                <p class="alert-info" asp>
+                  
+                    @Context.User.Identity.Name.Split('|')[1]
+                </p>
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <button class="btn-dark">Выйти</button>
+                    </form>
+                }
                 </div>
             </div>
         </nav>

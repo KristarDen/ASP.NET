@@ -46,7 +46,7 @@ namespace Internet_market.Controllers
         {
             var ProdWithphoto = await db_context.Products.Include(p => p.Photos).Where(itm => itm.Type == filter).ToListAsync();
 
-
+            ViewData["Title"] = filter;
             return View("Filter", ProdWithphoto);
         }
         public IActionResult Product(int id)

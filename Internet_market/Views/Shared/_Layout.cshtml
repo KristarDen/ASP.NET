@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Rock shop</title>
+    <link rel="shortcut icon" href="~/lib/favicon.ico" type="image/x-icon">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -42,7 +44,7 @@
                     @Context.User.Identity.Name.Split('|')[1]
                     </p>
                     <form method="post" asp-controller="Account" asp-action="Logout">
-                        <button class="btn-danger w-50 align-self-center">Выйти</button>
+                        <button class="btn-danger w-100 align-self-center">Выйти</button>
                     </form>
                     }
                 </div>

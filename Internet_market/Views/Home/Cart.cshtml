@@ -4,6 +4,7 @@
 @{
     var Products = ViewData["Products"] as List<Product>;
     var Photos = ViewData["Photos"] as List<Photo>;
+    decimal summ = 0;
 }
 <div class="text-center align-self-center">
     <h1 class="display-4">Корзина</h1>
@@ -27,6 +28,7 @@
 
                                 <div>@Products[i].Name</div>
                                 <div>@Products[i].Price &#8372;</div>
+                                @{summ += Products[i].Price;}
                                 <div>Размер : @Products[i].Size</div>
 
                             </div>
@@ -37,6 +39,7 @@
                         </div>
 
                     }
+                    <div>Всего : @summ ₴</div>
 
                     if (Context.User.Identity.IsAuthenticated)
                     {
@@ -44,7 +47,7 @@
                     }
                     else
                     {
-                        <button class="btn-info" onclick="location.href = `/Home/Login`">Заказать</button>
+                        <button class="btn-info" onclick="location.href = `/Account/Login`">Заказать</button>
                     }
                 }
                 else

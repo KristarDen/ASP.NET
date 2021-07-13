@@ -1,6 +1,8 @@
 ﻿
-<h2 style="align-self:center; text-align: center">
-    @ViewData["Name"] Спасибо за ваш заказ =)
-    Менеджер свяжется с вами в ближайшее время для подтверждения заказа
-</h2>
-<button class="btn-light" onclick="location.href = `/Home`">На главную</button>
+<div style="display: flex; flex-direction: column">
+    <h2 style="align-self:center; text-align: center; ">
+        @ViewData["Name"] Спасибо за ваш заказ =)
+        Менеджер свяжется с вами в ближайшее время для подтверждения заказа
+    </h2>
+    <button style="align-self:center; text-align: center" class="btn-info align-self-center" onclick="location.href = `/Home`">На главную</button>
+</div>

@@ -7,6 +7,24 @@
 
 
 <div class="text-center">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Все
+        </button>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+            <button class="dropdown-item"  onclick="javascript: document.location = 'Home/Filter/Футболка'">Футболки</button>
+
+            <button class="dropdown-item" onclick="javascript: document.location = 'Home/Filter/Шапка'">Шапки</button>
+
+            <button class="dropdown-item" onclick="javascript: document.location = 'Home/Filter/Маска'">Маски</button>
+
+            <button class="dropdown-item" onclick="javascript: document.location = 'Home/Filter/Шорты'">Шорты</button>
+
+            <button class="dropdown-item" onclick="javascript: document.location = 'Home/Filter/Носки'">Носки</button>
+        </div>
+    </div>
     <h1 class="display-4">Shop</h1>
     <div class="allProd">
         @foreach (var product in Model)

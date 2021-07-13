@@ -5,42 +5,60 @@
     var Products = ViewData["Products"] as List<Product>;
     var Photos = ViewData["Photos"] as List<Photo>;
 }
-<div class="text-center">
+<div class="text-center align-self-center">
     <h1 class="display-4">Корзина</h1>
-   
+
     <div class="container">
         @{
-            try 
-            { 
-                for (int i = 0; i < Products.Count; i++)
+            try
+            {
+                if (Products.Count > 0)
                 {
+                    for (int i = 0; i < Products.Count; i++)
+                    {
 
-                <div class="row" style="margin: 10px;">
+                        <div class="row" style="margin: 10px;">
 
-                    <a href="/Home/Product/@Products[i].Id"> 
-                        <img class="col-lg-" src="@Photos[i].source" width="150px" height="auto" />
-                    </a>
+                            <a class="col-lg" href="/Home/Product/@Products[i].Id">
+                                <img src="@Photos[i].source" width="150px" height="auto" />
+                            </a>
 
-                    <div class="col-lg">
+                            <div class="col-lg w-auto" style="background: rgba(95, 158, 160, 0.4);">
 
-                    <div>@Products[i].Name</div>
-                    <div>@Products[i].Price &#8372;</div>
-                    <div>Размер : @Products[i].Size</div>
+                                <div>@Products[i].Name</div>
+                                <div>@Products[i].Price &#8372;</div>
+                                <div>Размер : @Products[i].Size</div>
 
-                    </div>
-            
+                            </div>
 
-                </div>
-                
+                            <button class="col-sm-2 w-25 btn-danger" onclick="location.href = `/Home/DelProd/@Products[i].Id`">&#10005;</button>
+
+
+                        </div>
+
+                    }
+
+                    if (Context.User.Identity.IsAuthenticated)
+                    {
+                        <button class="btn-info" onclick="location.href = `/Home/OrderForm`">Заказать</button>
+                    }
+                    else
+                    {
+                        <button class="btn-info" onclick="location.href = `/Home/Login`">Заказать</button>
+                    }
                 }
-                <button onclick="location.href = `/Home/OrderForm`">Заказать</button>
+                else
+                {
+                    <h2 class="align-self-lg-stretch alert-dark">Корзина пуста... Пока что..</h2>
+                    <button onclick="location.href = `/Home`">На главную</button>
+                }
             }
             catch
             {
                 <h2 class="align-self-lg-stretch alert-dark">Корзина пуста... Пока что..</h2>
                 <button onclick="location.href = `/Home`">На главную</button>
             }
-          }
-        
+        }
+
     </div>
 </div>

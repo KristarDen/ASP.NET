@@ -29,7 +29,7 @@
                         <img class="nav-item" src="~/css/cart.png" width="50px" height="auto" />
                     </a>
                 </div>
-                <div>
+                <div >
                     @if (!Context.User.Identity.IsAuthenticated)
                     {
                         <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
@@ -37,14 +37,14 @@
                     }
                     else
                     {
-                <p class="alert-info" asp>
+                    <p class="text-light">
                   
                     @Context.User.Identity.Name.Split('|')[1]
-                </p>
+                    </p>
                     <form method="post" asp-controller="Account" asp-action="Logout">
-                        <button class="btn-dark">Выйти</button>
+                        <button class="btn-danger w-50 align-self-center">Выйти</button>
                     </form>
-                }
+                    }
                 </div>
             </div>
         </nav>

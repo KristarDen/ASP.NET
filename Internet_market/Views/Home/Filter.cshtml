@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+<link rel="stylesheet" href="~/css/AllProduct.css">
+
+
+<div class="text-center">
+    <h1 class="display-4">Shop</h1>
+    <div class="allProd">
+        @foreach (var product in Model)
+        {
+
+            <div class="ProductUnit" onclick="javascript: document.location = 'Home/Product/@product.Id'">
+
+                <span class="ProductName">@product.Name</span>
+
+                <img src="@product.Photos?.First()?.source" width="250px" height="auto" />
+
+                <span>@product.Type</span>
+                <span>Размер: @product.Size</span>
+
+                <span>@product.Price &#8372;</span>
+
+            </div>
+        }
+    </div>
+</div>

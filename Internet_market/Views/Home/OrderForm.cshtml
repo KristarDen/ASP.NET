@@ -6,7 +6,7 @@
 <script>
     function ValidPhone() {
 
-        let re = /^\d[\d\(\)\ -]{4,14}\d$/;
+        let re = /^\d[\d\(\)\ -]{4,13}\d$/;
         let myPhone = document.getElementById("phone").value;
         let valid = re.test(myPhone);
 
@@ -15,7 +15,7 @@
         }
         else {
             document.getElementById("PhoneLabel").innerText = "Номер телефона";
-            //document.getElementById("OrderButton").style.visibility = "visible";
+            document.getElementById("OrderButton").style.visibility = "visible";
         }
     }
     function Order() {
@@ -24,16 +24,17 @@
     }
 
 </script>
-<div class="row">
-    <div class="col-md-4">
+<div class="flex-column align-items-center">
+
+    <form asp-action="Order" method="post">
 
         <div class="form-group">
-            <label id="PhoneLabel"class="control-label">Номер телефона</label>
-            <input type="text" id="phone "class="form-control" oninput="ValidPhone()" title="Номер телефона" />
-            <span class="text-danger"></span>
+
+            <label id="PhoneLabel" class="control-label">Номер телефона</label>
+            <input type="text" id="phone" name="phone" class="form-control"  oninput="ValidPhone()" title="Номер телефона" />
+            
         </div>
 
-        <button id="OrderButton"  onclick="Order()" class="btn-success">Заказать</button>
-    </div>
-    
+        <input type="submit" class="btn-info" value="Заказать"/>
+    </form>
 </div>

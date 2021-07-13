@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using MimeKit;
 using MailKit.Net.Smtp;
+using System.Web;
 
 namespace Internet_market.Controllers
 {
@@ -41,6 +42,13 @@ namespace Internet_market.Controllers
             
         }
 
+        public async Task<IActionResult> Filter(string filter)
+        {
+            var ProdWithphoto = await db_context.Products.Include(p => p.Photos).Where(itm => itm.Type == filter).ToListAsync();
+
+
+            return View("Filter", ProdWithphoto);
+        }
         public IActionResult Product(int id)
         {
             Product product = db_context.Products.Find(id);
@@ -59,11 +67,12 @@ namespace Internet_market.Controllers
 
         public IActionResult Cart()
         {
-           
-            if(HttpContext.Request.Cookies.Keys.Contains("p1"))
+            List<Product> products = new List<Product>();
+            List<Photo> photos = new List<Photo>();
+
+            if (HttpContext.Request.Cookies.Keys.Contains("p1"))
             {
-                List<Product> products = new List<Product>();
-                List<Photo> photos = new List<Photo>();
+               
                 int i = 1;
                 while(true)
                 {
@@ -82,61 +91,152 @@ namespace Internet_market.Controllers
                     }
                     i++;
                 }
-                ViewData["Products"] = products;
-                ViewData["Photos"] = photos;
+
+                
+               
             }
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                int userId;
+
+                string[] userInfo;
+                userInfo = HttpContext.User.Identity.Name.Split('|');
+                userId = Convert.ToInt32(userInfo[0]);
+
+                var orders = db_context.Orders.Where(itm => itm.UserId == userId);
+
+                if (orders.ToList().Count > 0)
+                {
+                    foreach (var order in orders)
+                    {
+                        Product product = db_context.Products.Find(order.ProductId);
+                        Photo photo = db_context.Photos.Where(photo => photo.ProductId == order.ProductId).FirstOrDefault();
+
+                        products.Add(product);
+                        photos.Add(photo);
+                    }
+                    DelAllItemsFromCookies();
+                }
+
+            }
+
+            ViewData["Products"] = products;
+            ViewData["Photos"] = photos;
+            //ViewData.Add("IsAutificated", User.Identity.IsAuthenticated);
             return View("Cart");
         }
 
         public IActionResult AddProduct(int id)
         {
-            var option = new CookieOptions
+            if (!User.Identity.IsAuthenticated)
             {
-                HttpOnly = false,
-                Path = "/"
-            };
-
-            //перебор имеющихся cookies и добавление в конец
-            if (HttpContext.Request.Cookies.Keys.Contains($"p{1}"))
-            {
-                int i = 1;
-                while(true)
+                var option = new CookieOptions
                 {
-                    if (!HttpContext.Request.Cookies.Keys.Contains($"p{i}"))
+                    HttpOnly = false,
+                    Path = "/"
+                };
+
+                //перебор имеющихся cookies и добавление в конец
+                if (HttpContext.Request.Cookies.Keys.Contains($"p{1}"))
+                {
+                    int i = 1;
+                    while (true)
                     {
-                        HttpContext.Response.Cookies.Append($"p{i}", $"{id}", option);
-                        break;
+                        if (!HttpContext.Request.Cookies.Keys.Contains($"p{i}"))
+                        {
+                            HttpContext.Response.Cookies.Append($"p{i}", $"{id}", option);
+                            break;
+                        }
+                        else i++;
                     }
-                    else i++;
+
                 }
 
-            }
+                else
+                {
+                    HttpContext.Response.Cookies.Append($"p1", $"{id}", option);
+                }
 
+                if (HttpContext.User.Identity.IsAuthenticated == true)
+                {
+                    int UserId;
+                    string[] userInfo = HttpContext.User.Identity.Name.Split('|');
+                    UserId = Convert.ToInt32(userInfo[0]);
+
+                    Order ord = new Order
+                    {
+                        User = db_context.Users.Find(UserId),
+                        UserId = UserId,
+                        dateTime = DateTime.Now,
+                        ProductId = id,
+                        Product = db_context.Products.Find(id)
+                    };
+
+                    db_context.Orders.Add(ord);
+
+                    db_context.SaveChanges();
+                }
+            }
             else
             {
-                HttpContext.Response.Cookies.Append($"p1", $"{id}", option);
-            }
+                int userId;
 
-            if(HttpContext.User.Identity.IsAuthenticated == true)
-            {
-                int UserId;
-                string[] userInfo = HttpContext.User.Identity.Name.Split('|');
-                UserId = Convert.ToInt32(userInfo[0]);
+                string[] userInfo;
+                userInfo = HttpContext.User.Identity.Name.Split('|');
+                userId = Convert.ToInt32(userInfo[0]);
 
                 Order ord = new Order
                 {
-                    User = db_context.Users.Find(UserId),
-                    UserId = UserId,
+                    User = db_context.Users.Find(userId),
+                    UserId = userId,
                     dateTime = DateTime.Now,
                     ProductId = id,
                     Product = db_context.Products.Find(id)
                 };
 
                 db_context.Orders.Add(ord);
+                db_context.Users.Find(userId).Orders.Add(ord);
 
                 db_context.SaveChanges();
             }
             return Redirect($"~/Home/Product/{id}");
+        }
+
+        public IActionResult DelProd(int id)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                int userId;
+
+                string[] userInfo;
+                userInfo = HttpContext.User.Identity.Name.Split('|');
+                userId = Convert.ToInt32(userInfo[0]);
+
+                var orders = db_context.Orders.Where(itm => itm.UserId == userId);
+                Order order = orders.Where(itm => itm.ProductId == id).FirstOrDefault();
+                db_context.Remove(order);
+                db_context.SaveChanges();
+            }
+
+            else
+            {
+                if(HttpContext.Request.Cookies.Keys.Contains($"p{id}"))
+                {
+                    string data;
+                    HttpContext.Request.Cookies.TryGetValue($"p{id}", out data);
+                    var option = new CookieOptions
+                    {
+                        HttpOnly = false,
+                        Path = "/",
+                        Expires = DateTime.Now.AddDays(-5)//Отрицательная дата должна удалить cookies
+                    };
+
+                    HttpContext.Response.Cookies.Append($"p{id}", $"{data}", option);
+                }
+            }
+
+
+            return Redirect($"~/Home/Cart");
         }
 
         public IActionResult OrderForm()
@@ -155,28 +255,30 @@ namespace Internet_market.Controllers
 
             var user = db_context.Users.Find(UserId);
 
-            string message = "Заказ\n Информация о заказщике :\n Имя" + user.FirstName +"\n"+ "Фамилия" + user.LastName + "\n"
-                + "Email: " + user.Email;
+            string message = "Заказ <div>Информация о заказщике :</div> <ul> <li>Имя :" + user.FirstName +"</li>"+ "<li>Фамилия :" + user.LastName + "</li>"
+                + "<li>Email : " + user.Email + "</li>" + "<li>Номер телефона :" + phone + "</li> </ul>";
 
             var Orders = db_context.Orders.Where(order => order.UserId == UserId);
 
             decimal sum = 0;
 
             int i = 1;
+            message += "<ol>";
             foreach(var order in Orders)
             {
                 var prod = db_context.Products.Find(order.ProductId);
-                message += $"№{i} #id {prod.Id} | {prod.Name} | размер {prod.Size} | цвет {prod.Color} | {prod.Type} | {prod.Price}\n";
+                message += $"<li> #id {prod.Id} | {prod.Name} | размер {prod.Size} | цвет {prod.Color} | {prod.Type} | {prod.Price}</li>";
                 sum += prod.Price;
                 i++;
 
                 db_context.Orders.Remove(order);
             }
-            message += $"Всего {sum} ₴";
+            db_context.SaveChanges();
+            message += "</ol>";
+            message += "<hr>";
+            message += $"<div>Всего {sum} ₴</div>";
 
-            string email = user.Email;
-
-            await SendEmailAsync(email, "Новый заказ", message);
+            await SendEmailAsync("denis216051@gmail.com", "Новый заказ", message);
 
             ViewData.Add("Name", "" + userInfo[1]);
             return View("OrderResponce");
@@ -257,11 +359,21 @@ namespace Internet_market.Controllers
             if (HttpContext.Request.Cookies.Keys.Contains($"p{1}"))
             {
                 int i = 1;
+                string id;
                 while (true)
                 {
                     if (HttpContext.Request.Cookies.Keys.Contains($"p{i}"))
                     {
-                        HttpContext.Response.Cookies.Delete($"p{i}");
+                        HttpContext.Request.Cookies.TryGetValue($"p{i}", out id);
+                        var option = new CookieOptions
+                        {
+                            HttpOnly = false,
+                            Path = "/",
+                            Expires = DateTime.Now.AddDays(-5)//Отрицательная дата должна удалить cookies
+                        };
+
+                        HttpContext.Response.Cookies.Append($"p{i}", $"{id}", option);
+
                         i++;
                     }
                     else break;
